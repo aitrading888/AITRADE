@@ -1,0 +1,365 @@
+
+
+## PROJECT PROPOSAL / PAPER TRADING MVP
+## 項目建議書
+AI TRADER - AI 美股波段交易 Agent
+Paper Trading MVP
+項目性質AI Trading Agent MVP / Paper Trading Only
+建議階段Phase 1 - 3 個月觀察期
+## 建議預算上限US$200 / 3 個月
+## 資金風險本階段不投入真實交易資金
+## 文件日期2026 年 5 月 13 日
+## 本文件只作項目評估及系統建設評估用途，不構成任何買賣證券、基金、衍生工具或其他金融產品的建議。
+## 1. 執行摘要
+本建議書旨在申請批准及投入資源，建立一個名為 AI TRADER 的 AI 美股波段交易 Agent。系統初期只會在
+## Alpaca Paper Trading 環境運行，不會使用真實資金交易。
+## 本項目的重點不是短期賺錢，而是用 3 個月時間驗證一套「AI + 嚴格交易紀律 + 多層風控 + 完整日誌審計」的
+## 交易框架是否值得進一步投入。
+## AI TRADER 的核心價值不是預測市場，而是測試 AI 能否穩定執行既定規則、嚴守風控、避免情緒化交易，並累
+## 積足夠數據供人類事後評估。
+## 2. 項目目的
+## 本次項目的目的，是建立一個低成本 MVP，用作驗證以下問題：
+AI 能否每日自動完成 pre-market research；
+AI 能否根據 checklist 產生 trade plan；
+## 1.
+## 2.
+AI TRADER AI Trading Agent - Project ProposalConfidential - Paper Trading MVP only - Not financial advice
+## 1
+
+AI 能否只在符合規則時執行 paper trade；
+AI 能否自動管理 stop loss、trailing stop 及風險限制；
+## 每次交易是否有完整紀錄，方便人類審核；
+## 3 個月後，系統是否有足夠數據支持下一步發展。
+這是一個學習及驗證實驗，不是一部「自動賺錢機器」。本階段只批准 paper trading，3 個月後才根據結
+## 果決定是否繼續、修改或另行申請真錢測試。
+## 3. 項目概覽
+## 項目內容
+## 項目名稱AI TRADER
+類型AI Swing Trading Agent
+## 交易市場美國上市普通股
+交易方向Long-only
+## 持倉週期約 3 日至 6 星期
+初始模式Paper Trading only
+## 觀察期3 個月
+## 真錢交易本階段不批准
+## 主要目標驗證 AI 是否能嚴格執行交易紀律及風控
+AI TRADER 只可交易美股普通股 long-only，不可做空、不可交易 options、futures、crypto、槓桿 ETF、反
+## 向 ETF、中概 ADR、SPAC 或近 90 日 IPO 股票。
+## 3.
+## 4.
+## 5.
+## 6.
+AI TRADER AI Trading Agent - Project ProposalConfidential - Paper Trading MVP only - Not financial advice
+## 2
+
+## 4. 預算及資源
+## 項目預計成本
+Claude APIUS$15-30 / 月
+Apify X/Twitter ScraperUS$15-25 / 月
+Alpaca Paper TradingUS$0
+GitHub ActionsUS$0
+Telegram & WhatsAppUS$0
+GitHub RepoUS$0
+## FRED / SEC EDGARUS$0
+## 每月合計US$30-55
+## 3 個月合計US$90-165
+## 建議預算上限US$200
+## 預算主要用於 API、資料抓取及系統運作。建議將本階段營運預算上限設定為 US$200 / 3 個月，任何超出預算
+的支出均需 owner 另行批准。本階段不會將資金用於真實股票交易。
+## 5. 預算用途
+## 用途說明
+## AI API用於研究、分析、交易計劃及報告生成
+Apify抓取指定 X 帳號作為 idea generation
+Alpaca Paper API模擬交易下單、查持倉及撤單
+GitHub儲存策略、state files、logs 及代碼
+Telegram & WhatsApp發送每日通知、警告及 INFO / WARNING / ALERT，包括 kill switch alert
+測試單元測試、整合測試及 dry run
+## 6. 系統設計
+AI TRADER 將透過 GitHub Actions 定時執行任務，並連接 Claude API、Alpaca API、Apify、SEC EDGAR、
+GitHub Repo 及 Telegram / WhatsApp 通知。
+AI TRADER AI Trading Agent - Project ProposalConfidential - Paper Trading MVP only - Not financial advice
+## 3
+
+## 任務時間 ET功能
+Pre-Market Research05:30研究 watchlist，產生當日 trade plan，不下單
+Market Open Execution09:45執行已批准的 trade plan
+Midday Risk Check12:00檢查 PnL、stop loss、trailing stop 及熔斷條件
+## Close Preparation15:30撤銷未成交買單，檢查過夜風險
+Weekly ReviewFriday 16:30週報、績效歸因、規則修訂建議
+所有時間以美東時間為準。每個任務開始前均需讀取 strategy、account state、positions、watchlist 及 kill
+switch 狀態。
+- 核心交易策略 (Trading Strategy & Constitution)
+AI TRADER 的核心交易策略是一套必須嚴格遵守的 Trading Strategy & Constitution。AI 系統在每次排程喚
+## 醒時，必須優先讀取此「憲法」，任何違反此憲法的決策將直接被系統退回。
+7.1 標的限制 (Universe)
+## 系統僅能在極度安全的流動性池中運作，交易標的必須同時符合以下條件：
+## 限制項
+## 目
+## 詳細要求
+## 上市板
+## 塊
+## 僅限 NYSE / NASDAQ 主板上市股票。
+## 市值門
+## 檻
+Market Cap ≥ US$10B，排除中小型股流動性風險。
+## 流動性30 日日均成交金額 ≥ US$50M。
+## 股價下
+## 限
+## 股價 ≥ US$10，避免低價及高操縱風險股票。
+## 絕對禁
+## 止清單
+做空、選擇權、期貨、加密貨幣、槓桿 / 反向 ETF（如 TQQQ、SQQQ）、3x / 2x ETF、中概股
+## ADR、SPAC、近 90 日內 IPO 股票，以及正受 SEC 調查之公司。
+7.2 進場檢核四大門檻 (Entry Criteria Checklist)
+## 每一筆交易必須 100% 通過以下條件；任何一項不通過，AI 必須放棄該交易，不可為了「湊單」或「避免錯過
+## 機會」而放寬條件。
+AI TRADER AI Trading Agent - Project ProposalConfidential - Paper Trading MVP only - Not financial advice
+## 4
+
+## 門檻詳細要求
+## 基本面過去 4 季有 ≥ 3 季營收正成長，且 ≥ 2 季淨利為正；最近 30 天內無負面 8-K 文件、財報
+## 重述或內部人大量拋售。
+## 技術面股價位於 200 日與 50 日均線之上，符合順勢交易原則；近 20 日無單日跌幅 > 15% 的崩
+## 盤；RSI(14) 介於 40-75 之間，避免追高或接刀。
+## 催化劑
+(Catalyst)
+必須具備明確動能，例如財報 beat 並上修 guidance、突破 60 日新高且成交量放大
+## 1.5x、明確行業利多，或 7 天內 ≥ 3 家機構調升目標價。
+## 風險回報 (R:R
+## Ratio)
+## 預期上漲空間 / 停損距離必須 ≥ 2.5 : 1。停損點必須有技術意義，例如近期支撐位或 ATR
+## 計算位置，不可隨意設定。
+7.3 動態部位計算 (ATR-Based Position Sizing)
+## 系統不使用固定百分比，而是依據個股波動率 ATR 計算倉位，確保每筆交易的最大虧損恆定。
+## 單筆風險預算 = 總資金 × 0.5%
+## 每股風險 = ATR(14) × 2
+股數 = floor((總資金 × 0.005) / (ATR(14) × 2))
+## 項目說明
+## 單筆風險預
+## 算
+## 總資金的 0.5%。
+## 每股風險ATR(14) × 2，即根據股票本身波動性設定停損距離。
+## 上限驗證計算出的單一部位總額絕對不可超過總資金的 3%。若超過，必須依 3% 上限向下調整股
+## 數。
+7.4 出場與停利規則 (Exit Rules)
+## 出場類型詳細規則
+初始硬停損進場價 - (ATR × 2)，並需在進場成交後立即設定 stop order。
+## 時間停損持倉 14 天後若獲利 < 5%，強制出場，以控制資金機會成本。
+## 基本面 / 緊急停
+## 損
+如財報 miss 且下修 guidance，或單日跌幅 > 10%，需立即出場，不可等待主觀反彈。
+## 移動停利 +8%當部位獲利達 +8%，停損上移至進場價 +1%，以鎖定保本。
+## 移動停利 +15%當部位獲利達 +15%，停損上移至進場價 +8%。
+部分出場獲利達 +20% 時賣出 1/3；獲利達 +40% 時再賣出 1/3；餘下部位以 trailing stop 讓利潤
+## 奔跑。
+AI TRADER AI Trading Agent - Project ProposalConfidential - Paper Trading MVP only - Not financial advice
+## 5
+
+## 8. 風險管理
+## 本項目的核心不是追求高回報，而是建立可控、可審計、可停止的交易系統。
+## 8.1 部位限制
+## 風控項目限制
+## 單一股票最大部位總資金 3%
+## 單一行業最大部位總資金 20%
+## 總曝險上限總資金 60%
+## 同時持倉數量最多 8 隻
+## 每週新增部位最多 2 隻
+8.2 ATR-based Position Sizing
+## 每筆交易的風險不應用固定百分比隨便估，而是用 ATR 計算。核心公式如下：
+## 單筆風險預算 = 總資金 × 0.5%
+## 每股風險 = ATR(14) × 2
+## 股數 = 單筆風險預算 / 每股風險
+## 如果計算出來的部位超過總資金 3%，就必須縮細至 3% 以內。
+## 8.3 出場及停損規則
+## 出場類型規則
+## 初始硬停損進場價 - ATR × 2
+## 時間停損持倉 14 日後仍未達 +5%，出場
+基本面停損財報 miss 並下修 guidance，出場
+## 緊急停損單日跌幅超過 10%，立即出場
+Trailing Stop獲利 +8%、+15% 後逐步上移 stop
+## 部分止賺+20% 賣出 1/3，+40% 再賣出 1/3
+## 這些規則目的，是避免 AI 因為「覺得會反彈」而任意放寬停損。
+AI TRADER AI Trading Agent - Project ProposalConfidential - Paper Trading MVP only - Not financial advice
+## 6
+
+## 9. Kill Switch 及熔斷機制
+## 如出現以下情況，系統必須停止交易並通知人類：
+## 單日帳戶虧損超過 2%；
+## 連續 3 個交易日虧損；
+## 月度累計虧損超過 6%；
+## 總帳戶從高位回撤超過 10%；
+Alpaca API 連續異常；
+出現任何 forbidden behaviour；
+## Strategy 文件被未授權修改；
+## 帳戶現金或持倉資料異常。
+一旦 kill switch 被觸發，AI 不能自行恢復交易，必須等人類清除後才可重新啟動。
+- 社群共識與資訊分級系統 (Information Tiers & Crowd Wisdom)
+AI TRADER 會結合嚴格的資訊分級制度及社群共識系統，用作產生 watchlist ideas 及交叉驗證市場訊號。但所
+## 有最終交易決策，仍必須回到 Trading Strategy & Constitution、基本面、技術面、催化劑及風險回報檢查。
+10.1 資訊分級 (Information Tiers)
+## 層級來源使用方式
+## Tier 1
+## 一手可
+## 信來源
+## SEC EDGAR，包括 10-K、10-Q、8-K、
+Form 4；公司 IR 網站；官方經濟數據；
+## 券商 API。
+## 決策必須主要依賴此層級。基本面、重大事件、財
+報、guidance、insider trading 及帳戶資料，應優先
+## 以 Tier 1 資料確認。
+## Tier 2
+## 二手聚
+## 合來源
+Bloomberg、WSJ、Reuters 等主流財經
+## 媒體。
+## 只可作為交叉驗證及背景補充。若涉及分析師觀點、
+## 行業消息或新聞催化劑，原則上需 3 家獨立來源一
+## 致，才可視為較可靠訊號。
+## 10.2 X / Twitter 訊號系統
+AI TRADER 會監控指定 X 帳號，例如 @trading_for_bj，以及其 following 帳號群體，用作 idea
+generation，抓取 86 個頂級交易員的即時觀點。
+重點：X 訊號只可以用作 watchlist idea，不可以直接作為買入理由。任何由 X 帳號產生的 ticker，都必須重新
+通過完整 checklist，包括 hard constraints、基本面、技術面、催化劑及風險回報檢查。而且必須引用 Tier
+1 / Tier 2 來源，例如 SEC filing、公司官方財報或主流財經媒體。
+10.2.1 帳號分類 (Account Classification)
+## 86 個帳號不會被同等加權。每個帳號會根據可信度、透明度及歷史訊號質量，分為以下五個等級：
+## 1.
+## 2.
+## 3.
+## 4.
+## 5.
+## 6.
+## 7.
+## 8.
+AI TRADER AI Trading Agent - Project ProposalConfidential - Paper Trading MVP only - Not financial advice
+## 7
+
+## 等級說明投票權重
+## Tier A可信機構 / 已驗證分析師1.0
+## Tier B獨立交易員，且有穩定歷史紀錄1.0
+Tier CSignal sellers、付費推廣、AI avatars0
+## Tier D不清晰 / 低活躍度 / 私人帳號0.5
+## Blacklist已知操縱或欺詐帳號0
+初始分類由 owner 手動完成，先用約 10 分鐘標記明顯的 Tier C 帳號，其餘中性帳號再由 Claude 透過結構化
+prompt 協助分類。
+10.2.2 共識訊號等級 (Consensus Signal Levels)
+## 系統會將已分類帳號池內的訊號進行聚合：
+## 訊號等級觸發條件系統處理
+## Weak Signal24 小時內 2 票只記錄，不採取行動
+Medium Signal3 票加入 research watchlist
+## Strong Signal5 票或以上優先安排下一交易日研究
+## Suspicious
+## Signal
+## 60 分鐘內 5 個以上帳號出現相似字眼，並由 LLM 偵測
+## 疑似協調
+拒絕並標記為 coordination
+## Overheated
+## Signal
+## 24 小時內 15 票或以上視為反向指標，不允許新增
+## 入場
+10.2.3 自動帳號降級 (Automated Account Downgrade)
+每逢星期日 02:00 ET，系統會計算每個帳號的 contribution hit rate，即由該帳號最初提供 idea 而產生交易
+## 的勝率。
+## 降級規則條件
+## B → C連續 5 次貢獻虧損，或樣本數 10 且勝率低於系統平均 20%
+## C → D樣本數 5 且勝率低於 25%
+任何等級 → Blacklist偵測到 coordination behavior、paid promotion，或連續 8 次貢獻虧損
+## 升級必須由人類批准，以防止操縱帳號被重新啟用。所有變更均需記錄並透過 Telegram 通知。
+## 10.2.4 Probation Constraint
+@trading_for_bj 處於 3 個月 probation 期間。即使 idea 通過完整 checklist，單一部位上限亦由正常 3% 降
+至 1.5%。3 個月後，系統會根據表現數據決定是否解除或延長 probation。
+AI TRADER AI Trading Agent - Project ProposalConfidential - Paper Trading MVP only - Not financial advice
+## 8
+
+## 11. 治理及審計
+## AI TRADER 每次執行前必須完成以下步驟：
+讀取 STRATEGY.md；
+讀取 account state；
+讀取 positions；
+讀取 watchlist；
+檢查 kill switch；
+## 確認當前任務是否在授權時間內；
+每個決策必須引用 strategy 條款及資料來源。
+如果無法讀取 STRATEGY.md，AI 必須立即停止，不可以憑記憶使用舊規則。AI 亦不可自行修改
+STRATEGY.md，即使發現規則有問題，也只能在週報提出建議，由人類審核後決定是否修改。
+## 12. 驗收標準
+## 項目驗收要求
+GitHub Actions所有 cron job 正常觸發
+Strategy ComplianceAI 能正確讀取及引用 STRATEGY.md
+Alpaca Paper Trading可正常下單、撤單、查持倉、設定 stop
+## Apify能抓取指定 X 帳號資料
+Telegram & WhatsApp可發送 INFO / WARNING / ALERT
+## Pre-trade Checklist能擋下不合規交易
+ATR sizing部位計算正確，包括 3% 上限
+## Kill Switch熔斷及停機機制正確
+## Logs每日、每週、每筆交易均有紀錄
+## Testing核心模組有單元測試
+Dry Run連續 7 日 paper trading 無重大錯誤
+## 1.
+## 2.
+## 3.
+## 4.
+## 5.
+## 6.
+## 7.
+AI TRADER AI Trading Agent - Project ProposalConfidential - Paper Trading MVP only - Not financial advice
+## 9
+
+## 13. 主要風險及應對
+## 風險影響應對
+AI 違反規則下錯單Pre-trade validator、完整 logs、kill switch
+X 訊號污染產生低質 ideaX 只作 watchlist，不作催化劑
+API 失敗無法下單或資料錯誤retry、記錄、必要時 kill switch
+Paper result 過度樂觀錯誤信心3 個月後先審核，不即時 live
+## 成本超支預算失控設 US$200 上限
+Developer 離開無人維護GitHub 文件、Runbook、完整交接
+## 14. 預期成果
+本 proposal 不保證任何投資回報。本階段真正回報是 information return，即：
+## 知道 AI 能否嚴格守規則；
+知道這套策略在 paper trading 是否有正期望；
+## 知道 X 訊號是否真的增加價值；
+知道風控是否有效限制 drawdown；
+## 知道系統是否穩定到可考慮下一階段。
+3 個月後，才根據結果決定停止項目、繼續 paper trading、修改 strategy、增加資料來源，或另行批准小額真
+## 錢測試。
+## 15. 項目建議
+建議批准 Phase 1 - Paper Trading MVP，但不批准 live trading。
+## 主要原因如下：
+## 成本低，3 個月上限約 US$200；
+## 不涉及真實交易資金風險；
+## 可以測試 AI 是否能嚴格執行交易紀律；
+## 所有決策可審計、可回溯；
+## 若結果差，可以低成本停止；
+## 若結果好，可以再考慮下一階段。
+## 1.
+## 2.
+## 3.
+## 4.
+## 5.
+## •
+## •
+## •
+## •
+## •
+## •
+AI TRADER AI Trading Agent - Project ProposalConfidential - Paper Trading MVP only - Not financial advice
+## 10
+
+## 16. 最終決策門檻
+## 問題通過標準
+是否曾違反 hard rules？不可以
+Checklist compliance 是否 100%？必須是
+## Logs 是否完整？必須是
+Max drawdown 是否在限制內？必須是
+Paper trading 是否有可接受表現？人類審核
+X ideas 是否優於 AI 自挖 ideas？人類審核
+是否值得 live testing？需另行批准
+## 17. 結論
+AI TRADER 應被視為一個低成本、受控、可審計的 AI trading experiment。
+本次項目的合理性不在於短期賺錢，而在於用有限成本測試一個 AI agent 是否能在真實市場資料環境下，穩定
+## 遵守交易規則、控制風險、產生可分析紀錄。
+建議批准 Phase 1 Paper Trading MVP，預算上限 US$200，觀察期 3 個月。 真錢交易需待 MVP 完成及人類
+## 重新審批後，才可另行考慮。
+AI TRADER AI Trading Agent - Project Proposal. Confidential - Paper Trading MVP only - Not financial advice.
+AI TRADER AI Trading Agent - Project ProposalConfidential - Paper Trading MVP only - Not financial advice
+## 11
